@@ -59,9 +59,9 @@ namespace Slash.Unity.Common.ECS
             }
             else
             {
-                Profiler.BeginSample("Instantiate EntityPrefab");
+                UnityEngine.Profiling.Profiler.BeginSample("Instantiate EntityPrefab");
                 entityObject = this.gameObject.AddChild(this.entityPrefab);
-                Profiler.EndSample();
+                UnityEngine.Profiling.Profiler.EndSample();
             }
 
             return entityObject;
@@ -152,9 +152,9 @@ namespace Slash.Unity.Common.ECS
         private void PushPoolObject(GameObject entityObject)
         {
 #if UNITY_EDITOR
-        Profiler.BeginSample("Change parent transform");
+        UnityEngine.Profiling.Profiler.BeginSample("Change parent transform");
         entityObject.transform.parent = this.transform;
-        Profiler.EndSample();
+        UnityEngine.Profiling.Profiler.EndSample();
 #endif
 
             entityObject.SetActive(false);

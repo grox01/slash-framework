@@ -246,7 +246,7 @@ namespace Slash.Unity.Common.ECS
         /// <param name="e"> Game event that has occurred. </param>
         private void OnComponentAdded(GameEvent e)
         {
-            Profiler.BeginSample("Component added");
+            UnityEngine.Profiling.Profiler.BeginSample("Component added");
 
             EntityComponentData eventArgs = (EntityComponentData)e.EventData;
             int entityId = eventArgs.EntityId;
@@ -262,7 +262,7 @@ namespace Slash.Unity.Common.ECS
                 entityObject.AddComponent(logicToVisualMapping.VisualType);
             }
 
-            Profiler.EndSample();
+            UnityEngine.Profiling.Profiler.EndSample();
         }
 
         private void OnComponentRemoved(GameEvent e)
@@ -348,7 +348,7 @@ namespace Slash.Unity.Common.ECS
                 return;
             }
 
-            Profiler.BeginSample("Create entity");
+            UnityEngine.Profiling.Profiler.BeginSample("Create entity");
 
             GameObject entityObject;
             if (this.EntityObjectPool != null)
@@ -362,9 +362,9 @@ namespace Slash.Unity.Common.ECS
             }
 
 #if UNITY_EDITOR
-            Profiler.BeginSample("Change parent transform");
+            UnityEngine.Profiling.Profiler.BeginSample("Change parent transform");
             entityObject.transform.parent = this.entitiesRoot.transform;
-            Profiler.EndSample();
+            UnityEngine.Profiling.Profiler.EndSample();
 #endif
 
             // Check for entity behaviour to set entity id.
@@ -377,7 +377,7 @@ namespace Slash.Unity.Common.ECS
 
             this.entities.Add(entityId, entityObject);
 
-            Profiler.EndSample();
+            UnityEngine.Profiling.Profiler.EndSample();
         }
         
         /// <summary>
@@ -395,7 +395,7 @@ namespace Slash.Unity.Common.ECS
                 return;
             }
 
-            Profiler.BeginSample("Remove entity");
+            UnityEngine.Profiling.Profiler.BeginSample("Remove entity");
 
             // Reset entity object.
             this.ResetEntityObject(entityObject);
@@ -407,7 +407,7 @@ namespace Slash.Unity.Common.ECS
 
             this.entities.Remove(entityId);
 
-            Profiler.EndSample();
+            UnityEngine.Profiling.Profiler.EndSample();
         }
 
         private void OnGameChanged(Game newGame, Game oldGame)
