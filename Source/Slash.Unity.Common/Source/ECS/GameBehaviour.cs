@@ -95,7 +95,22 @@ namespace Slash.Unity.Common.ECS
         /// </summary>
         public GameConfigurationBehaviour GameConfiguration { get; private set; }
 
-        public static GameBehaviour Instance { get; private set; }
+		/// <summary>
+		///  To make the Instance independent of loading order.
+		/// </summary>
+		private static GameBehaviour _instance; 
+        public static GameBehaviour Instance { 
+			get {
+				if (_instance == null) {
+					_instance = (GameBehaviour) FindObjectOfType (typeof(GameBehaviour));
+					if (_instance == null) {
+						throw new System.ArgumentNullException ("Make sure there's one GameObject with " +
+							"GameBehaviour in the scene.");
+					}
+				}
+				return _instance;
+			}
+		}
 
         #endregion
 
@@ -144,7 +159,8 @@ namespace Slash.Unity.Common.ECS
         /// </summary>
         private void Awake()
         {
-            Instance = this;
+//			print ("set GameBehaviour.Instance");
+//            Instance = this;
 
             if (this.GameConfiguration == null)
             {
